@@ -37,7 +37,7 @@ char2<-'你好'
 char1Vector<-c("你好","How are you?")
 ```
 
-#有時候內文有引號的話外面被迫要用單引號
+###有時候內文有引號的話外面被迫要用單引號
 ```{r}
 dialogue <- c('小明說："明天不用上課。"',
                '小花說："真的嗎？"')
@@ -45,16 +45,46 @@ dialogue <- c('小明說："明天不用上課。"',
 cat(dialogue, sep="\n")
 ```
 
-#Atomic: 6自動被轉成"6"了，一個vector應該都要是同一個class
+###Atomic: 6自動被轉成"6"了，一個vector應該都要是同一個class
 ```{r}
 atomic<-c("roku",6)
 ```
 
 
 ```{r}
+logi1 <- c(T,TRUE,F,FALSE,FALSE)
+```
+
+
+###注意:引號只會用來定義[值]，不會用來定義[名稱]，定義名稱用{反頓點}(aka波浪鍵那一顆)
+```{r}
+library(googlesheets4)
+`出席狀況表單網址` <-
+ 
+"https://docs.google.com/spreadsheets/d/1EAG49qDKPWWi0ebkVr29TLrvVnoBPfkvxYY-J3xLAHY/edit#gid=458686645" 
+   # 網址是用字串來儲存的
+
+ss <- as_sheets_id(`出席狀況表單網址`)
+homework_sheet <- sheets_read(ss,sheet=1)
+
 ```
 
 
 ```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+```
+
+
+```{r}
+
 ```
 
