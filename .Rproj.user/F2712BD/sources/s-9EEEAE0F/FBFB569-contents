@@ -48,13 +48,21 @@ library(googlesheets4)
 library(dplyr)
 library(lubridate)
 ```
+#history
+右邊history會顯示你執行過的指令用to console(下)/to source(上)來複製回來
 
 ```{r}
-
+library(lubridate)
 ```
-
+#create object
+等號和左向箭頭一樣
+右向箭頭和他們不一樣
+定下來的會出現在右邊environment
+也只有右邊定下來的可以在接下來使用
 ```{r}
-
+a=2
+b<-2
+2->c
 ```
 
 ```{r}
