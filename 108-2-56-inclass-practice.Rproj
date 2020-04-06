@@ -1,13 +1,97 @@
-Version: 1.0
+---
+title: "Untitled"
+author: "Jay Wu"
+date: "2020年4月6日"
+output: html_document
+---
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
+## R Markdown
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+
+##chunk命名&大綱
+打井號可以用右上角[大綱]查到
+{r xxxx}xxxx的部分是在幫這個chunk取名，左下角可以查詢
+```{r gyouza}
+```
+
+##package
+基本上就是現成的程式碼
+library是用來啟動[已安裝]的packages(未安裝的會出現error)
+去左邊packages-install下載(也可以用install packages指令)
+隔壁packages有打勾就表示已library
+```{r}
+library(googlesheets4)
+library(dplyr)
+library(lubridate)
+```
+
+##history
+右邊history會顯示你執行過的指令用to console(下)/to source(上)來複製回來
+
+```{r}
+library(lubridate)
+```
+
+##create object
+等號和左向箭頭同義
+右向箭頭和他們不一樣
+定下來的會出現在右邊environment
+也只有右邊定下來的可以在接下來使用
+所以在r裡面的順序很重要(要先命名)
+```{r}
+a=2
+b<-2
+2->c
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+

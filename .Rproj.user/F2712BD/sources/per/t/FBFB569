@@ -2,20 +2,20 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1586139609417.000,
-    "dirty" : true,
-    "encoding" : "",
+    "dirty" : false,
+    "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1110245807",
     "id" : "FBFB569",
-    "lastKnownWriteTime" : 14918371337502765,
-    "last_content_update" : 1586144496784,
-    "path" : null,
-    "project_path" : null,
+    "lastKnownWriteTime" : 1586144867,
+    "last_content_update" : 1586144867,
+    "path" : "C:/Users/Jay-PC/Desktop/108-2-56-inclass-practice/108-2-56-inclass-practice.Rproj",
+    "project_path" : "108-2-56-inclass-practice.Rproj",
     "properties" : {
-        "cursorPosition" : "66,0",
+        "cursorPosition" : "43,24",
         "docOutlineVisible" : "0",
         "last_setup_crc32" : "9EEEAE0Fbb338d19",
-        "scrollLine" : "54",
+        "scrollLine" : "24",
         "tempName" : "Untitled1"
     },
     "read_only" : false,
@@ -24,5 +24,5 @@
     "relative_order" : 1,
     "source_on_save" : false,
     "source_window" : "",
-    "type" : "r_markdown"
+    "type" : "text"
 }
