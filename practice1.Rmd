@@ -134,22 +134,120 @@ print(`小明108學年課表C`)
 print(`小明108學年課表C`)
 ```
 
-
+複雜的問題可以先在外面定好list在整合
 ```{r}
+library(lubridate)
+#第一群
+authorValues <- 
+  list(
+    name="Martin老師",  
+    email="mtlin@gm.ntpu.edu.tw",
+    time=ymd_hms("2020-03-25T07:17:40Z")
+  )
+#第二層
+committerValues <- 
+  list(
+    name="emilyluckey", 
+    email="emily007@gmail.com",
+    time=ymd_hms("2020-03-26T08:18:40Z")
+  )
+
+commit <- list(
+  author=authorValues,
+  commmitter=committerValues,
+  message="update"
+)
+
+print(commit)
 ```
 
-
+##JSON格式
+用jsonlite的toJSON指令把list轉成JSON形式
 ```{r}
+library(jsonlite) # 不少同學這行會有Error，還記得如何排除嗎？
+toJSON(commit)
+```
+用JSONc函數把外部的JSON檔轉換成list
+```{r}
+library(jsonlite)
+fromJSON("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON") ->
+  weather_next36hours
+```
+##practice
+```{r}
+# 108-1 
+course1_1081 <- 
+  list(
+    name="個體經濟學",
+    teacher="Alice",
+    grade=85
+  )
+course2_1081 <-
+  list(
+    name="總體經濟學",
+    teacher="Mark",
+    grade=78
+  )
+`108-1修課記錄` <- 
+  list(
+    course1_1081,
+    course2_1081
+  )
+
+# 108-2
+course1_1082 <- 
+  list(
+    name="作業研究",
+    teacher="Jason",
+    grade=90
+  )
+`108-2修課記錄` <- 
+  list(
+    course1_1082
+  )
+
+# 整合兩學期
+`每學期修課記錄` <- list(
+  `108-1`=`108-1修課記錄`,
+  `108-2`=`108-2修課記錄`
+)
+
+# 完成記錄
+`小明的修課記錄` <- 
+  list(
+    name="小明",
+    semesters=`每學期修課記錄`
+  )
 ```
 
 ```{r}
+library(lubridate)
+Taipei<-list(
+  date=list(ymd("2020-03-31"),ymd("2020-04-01")),
+  temperature=list(maxtemp=25,mintemp=18)
+)
+NewTaipei<-list(
+  date=list(ymd("2020-03-31"),ymd("2020-04-01")),
+  temperature=list(maxtemp=24,mintemp=15)
+)
+
+forecast<-list(Taipei,NewTaipei)
+print(forecast)
 ```
 
+##save
+可以用save函數把list儲存成Rda檔在用load函數重新叫出
+方便下次使用(environment清空時)以及將資料丟給其他r使用者
 ```{r}
-```
+object1 <- c(2,5)
+object2 <- ymd_hms(
+  c("2015-03-22 12:28:42","2017-12-22 15:33:48"),
+  tz="Asia/Taipei"
+)
+object3 <- list(2, FALSE, c("a","b","c"))
+save(object1, object2, object3, file="threeObjects.Rda")
 
-
-```{r}
+load("threeObjects.Rda")
 ```
 
 
