@@ -56,14 +56,94 @@ b<-2
 a
 ```
 
+##list
+按右邊list旁的放大鏡可以單獨看list內的物件
 
 ```{r}
+vectoreg=c(2,6,7)
+listeg=list(2,6,7)
+print(vectoreg)
+print(listeg)
+```
+
+list內的物件可以是不同type的(不同於vector必須都是同type)
+```{r}
+library(lubridate)
+#小明交易1是特殊名稱要用反頓點
+`小明交易1`<- list(
+  ymd_hms("2020-03-31T13:40:55Z"), # Date/Time class
+  "一芳", # character
+  2, # numeric
+  "水果茶" # character
+)
+print(`小明交易1`)
+```
+
+list包著兩個vector會保留vector的特性(不同於vector內包含vector時會自動被拆開成一個大的vector)
+```{r}
+# list含兩個vectors
+`小明108學年課表A` <- list(
+  c("108-1","高級會計學","高等統計學"),
+  c("108-2","食在拉丁美洲")
+)
+print(`小明108學年課表A`)
+
+#vector含兩個vectors
+`小明108學年課表a` <- c(
+  c("108-1","高級會計學","高等統計學"),
+  c("108-2","食在拉丁美洲")
+)
+print(`小明108學年課表a`)
+```
+
+list包含兩個lists會有分層的感覺(1-1,1-2,1-3...)
+可以用放大鏡看更清楚
+```{r}
+# list含兩個lists
+`小明108學年課表B` <- list(
+  list("108-1","高級會計學","高等統計學"),
+  list("108-2","食在拉丁美洲")
+)
+print(`小明108學年課表B`)
+
+
+#可以再用vector分群
+`小明108學年課表C` <- list(
+  list(c("108-1"),
+       c("高級會計學","高等統計學")),
+  list(
+    c("108-2"),c("食在拉丁美洲"))
+)
+print(`小明108學年課表C`)
+```
+可以幫list內的物件取名
+```{r}
+#第一個小list取叫`108學年第1學期`, 第二個叫`108學年第2學期`
+#小list內的向量也分別命名為semester&courses
+
+`小明108學年課表C` <- list(
+  `108學年第1學期`=list(
+   semester= c("108-1"), # 可只寫 "108-1"
+    courses=c("高級會計學","高等統計學")
+       ),
+  `108學年第2學期`=list(
+    semester=c("108-2"),
+    courses=c("食在拉丁美洲")
+  )
+)
+print(`小明108學年課表C`)
 ```
 
 
 ```{r}
 ```
 
+
+```{r}
+```
+
+```{r}
+```
 
 ```{r}
 ```
