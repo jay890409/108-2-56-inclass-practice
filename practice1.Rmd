@@ -250,6 +250,181 @@ save(object1, object2, object3, file="threeObjects.Rda")
 load("threeObjects.Rda")
 ```
 
+##Operation on vector and list
+vector版本
+```{r}
+vectorExample <- c("小明","小英","大雄")
+
+# 有多少位置可選：
+length(vectorExample)
+```
+
+```{r}
+#在vector內第X個元素
+vectorExample[[1]]
+vectorExample[[3]]
+```
+
+list版本
+```{r}
+listExample <- 
+  list(
+    student="小明",
+    `學期`=list(
+      `108-1`=list(
+        list(
+          name="個體經濟學",
+          teacher="Alice",
+          grade=85
+        )
+      ),
+      `108-2`=list(
+        list(
+          name="總體經濟學",
+          teacher="Mark",
+          grade=78
+        )
+      )
+    )
+  )
+# 有多少位置可選：listexample只有student和`學期`兩個元素
+length(listExample)
+```
+
+
+```{r}
+#這裡的到的不是元素的名稱(eg.student), 而是裡面的值。所以第一個是小明
+#第二個是一大串
+listExample[[1]]
+listExample[[2]]
+```
+
+
+```{r}
+library(jsonlite)
+fromJSON("https://data.tainan.gov.tw/dataset/4cd9345a-04bf-4328-a97d-314ff78b4763/resource/afc025fc-1ef4-447c-b785-a680391d0ca1/download/tnsport2.json", simplifyDataFrame = F) -> tainanSportsMap
+
+
+length(tainanSportsMap)
+```
+
+
+```{r}
+tainanSportsMap[[1]]
+tainanSportsMap[[1076]]
+```
+
+
+```{r}
+# 有哪些名字可選：
+names(listExample)
+```
+
+```{r}
+#用$可以直接用名子叫list內的元素
+listExample$student
+listExample$`學期` # 特殊命名依然要用反頓點呼叫
+```
+
+
+
+```{r}
+#用str來看一個list的structure
+str(listExample)
+```
+
+practice
+```{r}
+fromJSON("http://data.ntpc.gov.tw/api/v1/rest/datastore/382000000A-000157-002",
+         simplifyDataFrame = F) -> newTaipeiCityVaccine
+
+newTaipeiCityVaccine[["result"]] #這和$是一樣的意思(newTaipeiCityVaccine$result)
+
+str(newTaipeiCityVaccine[["result"]], max.level = 1)
+#str可以這樣套著用，max level是指說你要他在底下顯示到list的第幾層
+
+```
+
+#選多個元素
+```{r}
+#用[c()]選
+vectorExample
+vectorExample[c(1,3)]
+vectorExample[c(3,2,1)] # 產生重新排列效果
+```
+
+
+```{r}
+# 顯示到第一層
+str(listExample, max.level=1)
+
+listExample[c(1,2)]
+```
+
+practice
+```{r}
+tainanSportsMap[c(6,9)]
+```
+
+
+```{r}
+# 顯示到第一層
+str(listExample, max.level=1)
+
+listExample[c("學期")] #只選一個物件時不要用這種選法，會選的不乾淨
+listExample[c("student","學期")]
+```
+
+practice
+```{r}
+fromJSON("https://www.dropbox.com/s/qnm9bnz7vccrvcz/taipeiNightMarkets.json?dl=1", simplifyDataFrame = F) -> taipeiNightMarkets
+
+taipeiNightMarkets[c(1,8,9)]
+
+taipeiNightMarkets[c("寧夏觀光夜市","饒河街觀光夜市","臨江街觀光夜市")]
+```
+
+#要不要向量(true false向量)
+```{r}
+vectorExample
+vectorExample[c(T,T,F)] # 要，要，不要
+```
+
+```{r}
+str(listExample[c(F,T)]) # 不要，要
+str(listExample[c(T,T)]) # 要，要
+```
+
+practice
+```{r}
+names(taipeiNightMarkets)
+
+#1.基礎做法
+str(taipeiNightMarkets[c(T,F,F,F,T,F,F,F,F,T,F,F,F,T)])
+
+#2.也可以把裡面的向量先另外命名再放到括號內
+c(T,F,F,F,T,F,F,F,F,T,F,F,F,T)->mustgo
+str(taipeiNightMarkets[mustgo])
+
+#3.用repeat&replace的作法
+mustgo2<-rep(F,14) #repeat函數產生一個14個false的vector
+
+mustgo2[c(1,5,10,14)]<-TRUE #取出mustgo2的第X項來replace(箭頭反轉)成true來完成和上面一樣的vector
+str(taipeiNightMarkets[mustgo2])
+```
+
+
+```{r}
+
+```
+
+```{r}
+```
+
+
+```{r}
+```
+
 
 ```{r}
 ```
