@@ -413,10 +413,63 @@ mustgo2[c(1,5,10,14)]<-TRUE #取出mustgo2的第X項來replace(箭頭反轉)成t
 str(taipeiNightMarkets[mustgo2])
 ```
 
+#觀念
+```{r}
+str(listExample)
+get1 <- listExample[["學期"]]
+get2 <- listExample["學期"]
+```
+
+[[]]: 拿出某個物件值。將listExample裡的“學期”物件值拿出來
+```{r}
+get1 # 學期拿出來，有3個元素的list
+str(get1, max.level = 1)
+```
+
+[]: 留下某個物件值。將listExample裡的“學期”物件值
+```{r}
+get2 # listExample 只留下學期元素，是個只有一個元素的list
+str(get2, max.level = 2)
+```
+
+##連鎖選取
+在要選取複雜(包在很多層底下的項目)的東西時依照順序把選取的值一層一層串下去就可以直接到你最後要的結果，不用拆開來寫
+```{r}
+numVector <- c(2,3,6,-1,4,2,6)
+#基礎作法
+select1 <- numVector[c(1,4)]; select1 #；是可以把同一行兩個不同的指令分開的符號
+select2 <- select1[[1]]; select2
+
+# 用連鎖選取
+numVector[c(1,4)][[1]] #等同於select1和select2連續做
+```
+
+practice
+```{r}
+majors <- c("經濟學系","經濟學系","社會學系","社工系","經濟學系")
+names <- c("小英", "小美", "大雄","阿華", "阿尼")
+gender <- c("F","F","M","F","M")
+
+econOnly<-c(T,T,F,F,T)
+
+econFemaleOnly<-c(T,T,F)
+
+names[econOnly][econFemaleOnly]
+```
+
 
 ```{r}
 
 ```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
 
 ```{r}
 ```
