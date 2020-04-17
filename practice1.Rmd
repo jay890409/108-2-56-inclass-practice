@@ -696,14 +696,19 @@ list1 <-
   )
 str(list1)
 ```
-
-刪除Jack的status
 ```{r}
-list[[]
+str(list1)
+list1[[1]][-c(3)] -> list1[[1]] # 小心回存的位置
+
+list1[[2]][-c(4,5)] -> list1[[2]]
 ```
 
-
+list元素要刪除時也可以用[.]<-NULL, [[.]]<-NULL
+(把指定位置的資料存成NULL)，這種作法不用回存
 ```{r}
+str(list1)
+list1[[2]][c(1,2)] <- NULL
+str(list1)
 ```
 
 
