@@ -413,24 +413,6 @@ mustgo2[c(1,5,10,14)]<-TRUE #取出mustgo2的第X項來replace(箭頭反轉)成t
 str(taipeiNightMarkets[mustgo2])
 ```
 
-#觀念
-```{r}
-str(listExample)
-get1 <- listExample[["學期"]]
-get2 <- listExample["學期"]
-```
-
-[[]]: 拿出某個物件值。將listExample裡的“學期”物件值拿出來
-```{r}
-get1 # 學期拿出來，有3個元素的list
-str(get1, max.level = 1)
-```
-
-[]: 留下某個物件值。將listExample裡的“學期”物件值
-```{r}
-get2 # listExample 只留下學期元素，是個只有一個元素的list
-str(get2, max.level = 2)
-```
 
 ##連鎖選取
 在要選取複雜(包在很多層底下的項目)的東西時依照順序把選取的值一層一層串下去就可以直接到你最後要的結果，不用拆開來寫
@@ -457,9 +439,164 @@ econFemaleOnly<-c(T,T,F)
 names[econOnly][econFemaleOnly]
 ```
 
+#元素選取
+```{r}
+listExample <- 
+  list(
+    student="小明",
+    `學期`=list(
+      `108-1`=list(
+        list(
+          name="個體經濟學",
+          teacher="Alice",
+          grade=85
+        )
+      ),
+      `108-2`=list(
+        list(
+          name="總體經濟學",
+          teacher="Mark",
+          grade=78
+        )
+      )
+    )
+  )
+# 有多少位置可選：
+length(listExample)
+str(listExample)
+```
+
+#選一個元素時
+1.用位置 [[.]]
+```{r}
+listExample[[1]]
+listExample[[2]]
+```
+觀念
+```{r}
+str(listExample)
+get1 <- listExample[["學期"]]
+get2 <- listExample["學期"]
+```
+
+[[]]: 拿出某個物件值。將listExample裡的“學期”物件值拿出來
+```{r}
+get1
+
+# 學期拿出來，有2個元素的list
+str(get1)
+```
+
+[]: 留下某個物件值。將listExample裡的“學期”物件值
+```{r}
+get2 
+
+# listExample 裡只留下學期元素，所以變成是個只有一個元素的list
+str(get2)
+```
+
+#連鎖practice
+
+1.get1版本([.])
+
+用名字取，取出get1(list of 2)內的第一個元素
+```{r}
+get1$`108-1`->get1_layer1
+
+str(get1_layer1)
+```
+
+用位置取，取出layer1內的第一個元素
+```{r}
+get1_layer1[[1]]->get1_layer2
+str(get1_layer2)
+```
+再用名字取出teacher
+```{r}
+get1_layer2$`teacher`
+```
+
+把上面的步驟個串起來
+```{r}
+listExample[["學期"]]$`108-1`[[1]]$teacher
+
+#get1:listExample[["學期"]
+#layer1$:`108-1`
+#layer2:[[1]]
+#teacher:$teacher
+```
+
+2.get2([.])版本
+```{r}
+get2_layer1<-get2[[1]] #get2[["學期"]]
+get2_layer2<-get2_layer1[["108-1"]]
+get2_layer3<-get2_layer2[[1]]
+get2_layer3$teacher
+
+#比起用[[.]]取時多一步，所以取單一項時多不使用
+```
+
+#vector命名
+vector其實也可以命名裡面元素，但不能用$取
+```{r}
+#today <- list(
+# list("台北市",c(highest_temp = 25),c(lowest_temp = 18)),
+#  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+#tomorrow <- list(
+#  list("台北市",c(highest_temp = 25),c(lowest_temp = 18)),
+#  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+
+#weather <- list(today,tomorrow)
+
+#str(weather)
+
+#這裡的命名法很差，再取物時完全用不上，所以要改成:
+today <- list(
+ list("台北市",highest_temp=c(highest_temp = 25),lowest_temp=c(lowest_temp = 18)),
+  list("新北市",highest_temp=c(highest_temp = 24),lowest_temp=c(lowest_temp = 15)))
+tomorrow <- list(
+  list("台北市",c(highest_temp = 25),c(lowest_temp = 18)),
+  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+
+today[[1]]$`highest_temp`
+#值得注意的是底下顯示會出現highest_temp是因為有再vector內幫"25"命名為
+#highest_temp
+```
+
 
 ```{r}
+```
 
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
 ```
 
 
