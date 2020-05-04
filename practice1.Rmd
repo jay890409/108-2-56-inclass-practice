@@ -359,6 +359,8 @@ vectorExample[c(3,2,1)] # 產生重新排列效果
 str(listExample, max.level=1)
 
 listExample[c(1,2)]
+class(listExample)
+class(vectorExample)
 ```
 
 practice
@@ -713,13 +715,16 @@ str(list1)
 
 
 ```{r}
+
 ```
 
 
 ```{r}
+
 ```
 
 
 ```{r}
+
 ```
 
