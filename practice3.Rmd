@@ -1,0 +1,222 @@
+---
+title: "practice3"
+author: "Jay Wu"
+date: "2020/5/25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+##pipe
+```{r}
+threeHeigths <- c(Gary=178, John=182, Cam=175)
+```
+
+原本
+```{r}
+# 先排序由大到小，
+sort(threeHeigths, decreasing=T) -> sorted_heights
+
+# 把排好的人名取出
+names(sorted_heights) -> sorted_persons
+
+# 接著取出第一個位置的人名
+sorted_persons[[1]] -> highestPerson
+```
+
+pipe
+```{r}
+sort(threeHeigths, decreasing=T) %>% 
+names(.) %>%
+.[[1]] -> highestPerson
+```
+
+##原則
+能用pipe省略的中間元素必須要是要給一個函數使用的input
+```{r}
+#原本
+f(w) -> x
+g(x) -> y
+h(y) -> z
+
+#pipe
+f(w) %>%
+  g(.) %>% 
+  h(.) -> z
+#另解
+w %>%
+  f(.) %>%
+  g(.) %>%
+  h(.) -> z
+```
+
+eg.
+```{r}
+# 由cities創出每個元素對應的北部、東部、中部region factor
+cities <- factor(c("台北","花蓮","台東","台中"))
+levels(cities)
+```
+
+原本
+```{r}
+region <- cities
+
+# 以下為一連串的pipe operation
+levels(region) -> currentLevels
+str_replace(currentLevels,"台北","北部") -> currentLevels1
+str_replace(currentLevels1,"花蓮|台東","東部") -> currentLevels2
+str_replace(currentLevels2,"台中","中部") -> regionLevels
+regionLevels -> levels(region)
+```
+
+pipe
+```{r}
+levels(region) %>% 
+  str_replace(.,"台北","北部") %>%
+  str_replace(.,"花蓮|台東","東部") %>%
+  str_replace(.,"台中","中部") ->
+  levels(region)
+
+#最後一行的levels不能用pipe寫，因為它不是一個函數
+```
+
+##元素粹取[[A]]
+元素萃取是一種函數
+原本
+```{r}
+num <- c(2,97,22,15,7)
+
+# 選出大於50的數字
+(num > 50) -> pick_big
+num[pick_big]
+```
+
+pipe
+```{r}
+(num > 50) %>%
+  num[.]
+```
+
+##執行順序
+R在面對pipe時會先把pipe走完最後才去做值assign給最後物件的動作
+```{r}
+threeHeights %>%
+  .sort(., decreasing=T) %>%
+  names(.) %>%
+  .[[1]] -> highestPerson
+
+#會先走完threeHeights到.[[1]]的部分，在把它assign到 highestPerson
+```
+
+##.省略原則
+若代表中間物件的.在函數的「第一位」則.*可省略不寫，連它後面的,也去掉。小心若不在第一位則不可做省略.動作。
+
+原本
+```{r}
+levels(region) %>%
+  str_replace(.,"台北","北部") %>%
+  str_replace(.,"花蓮|台東","東部") %>%
+  str_replace(.,"台中","中部") ->
+  levels(region)
+```
+
+省略後
+```{r}
+levels(region) %>% 
+  str_replace("台北","北部") %>%
+  str_replace("花蓮|台東","東部") %>%
+  str_replace("台中","中部") -> 
+  levels(region)
+```
+
+要小心%>%是將左邊output放到右邊函數，這裡的右邊函數指的是最外圍的函數
+
+原本
+```{r}
+# 資料
+population <- c(`cityA`=500,`cityB`=1500, `cityC`=399)
+cities <- c("cityA","cityA","cityB","cityB","cityC")
+
+# 分析步驟
+names(sort(population)) -> setLevels
+factor(cities, levels = setLevels) -> cities 
+```
+
+pipe
+```{r}
+population %>%
+  sort() %>%
+  names() %>%
+  factor(cities, levels=.) -> cities
+
+#這裡不能使用population %>% names(sort(.))，會造成names函數錯誤[因為這樣寫的意思是names(.,sort(.))，而names的格式沒有兩個input]
+```
+
+##串接非單純函數程序
+基本上只要再用pipe的時候遇到error，就把error那行用大括號括起來，便可以執行
+```{r}
+dataList <- list(
+  num=c(2,97,22,15,7),
+  chr=c("2","97","22","15","7")
+)
+```
+
+原本
+```{r}
+map(dataList, is.numeric) -> results
+unlist(results) -> pick_numeric
+
+dataList[pick_numeric] -> num_element
+(num_element[[1]] > 50) -> pick_big
+num_element[[1]][pick_big] -> bigNumber
+```
+
+pipe
+```{r}
+map(dataList, is.numeric) %>%
+unlist(.) %>%
+
+dataList[.] %>%
+{(.[[1]] > 50)} %>%
+num_element[[1]][.] -> bigNumber
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
