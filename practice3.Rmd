@@ -620,10 +620,48 @@ if(as.logical(n %% 2)){
 
 
 ```{r}
+n<- 540
+
+conditionExpression_outcome=
+  ifelse(n %% 2==0, "even", "odd") 
+
+switch(
+  conditionExpression_outcome,
+  "even"={fvalue <- n/2}, # 偶數
+  "odd"=fvalue <- -(n+1)/2, # 奇數；只有一行指令可省略{}
+  warning("n要整數喔")  
+)
+
+print(fvalue)
 ```
 
 
 ```{r}
+grade <- sample(1:100, 10, replace=T)
+
+grade %>%
+  cut(c(-1,69,79,89,100)) -> grade
+
+levels(grade)
+
+switch(
+  as.character(grade[[1]]),
+  "(-1,69]"={
+    print("-_-")
+    "F"},
+  "(69,79]"={
+    print("棒")
+    "C"
+    },
+  "(79,89]"={
+    print("好棒")
+    "B"
+    },
+  "(89,100]"={
+    print("好棒棒")
+    "A"
+    }
+) -> letterGrade # 有回存時要螢幕印出的訊息一定要加print
 ```
 
 
